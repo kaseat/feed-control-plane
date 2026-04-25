@@ -1,0 +1,39 @@
+{
+  "version": "20260421193000",
+  "generated_at_utc": "2026-04-21T16:30:00+00:00",
+  "router_runtime_version": 1,
+  "profiles": {
+    "critical": {
+      "set_targets": [
+        "fd4",
+        "fs4"
+      ],
+      "files": {
+        "crit.domains": {
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "size": 12345,
+          "kind": "domain-list"
+        },
+        "dnsmasq-fd4.conf": {
+          "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "size": 45678,
+          "kind": "dnsmasq-nftset-config"
+        },
+        "nft-fs4.txt": {
+          "sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+          "size": 3456,
+          "kind": "curated-static-ipset-members"
+        }
+      }
+    },
+    "reference": {
+      "files": {
+        "ref.domains": {
+          "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "size": 2345678,
+          "kind": "reference-domain-corpus"
+        }
+      }
+    }
+  }
+}

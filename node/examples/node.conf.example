@@ -1,0 +1,10 @@
+# Public-safe example only.
+
+ROUTER_NAME=site-a
+NODE_CLASS=router
+FEED_BASE_URL=http://hub:18080/node-feeds
+FEED_PROFILE=critical
+STATE_ROOT=/etc/node-feeds
+OBSERVED_SPOOL=/var/lib/node-feeds/observed
+HUB_PUSH_URL=http://<vpn-bind-ip>:18080/api/observed
+HUB_PUSH_TOKEN=replace-me

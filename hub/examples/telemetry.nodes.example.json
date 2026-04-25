@@ -1,0 +1,71 @@
+{
+  "listen": {
+    "bind": "127.0.0.1",
+    "port": 19090
+  },
+  "source_mode": "hybrid",
+  "db_path": "/var/lib/node-control/telemetry/telemetry.sqlite3",
+  "poll_interval_seconds": 300,
+  "retention_days": 14,
+  "dns_tail_lines": 200,
+  "ssh": {
+    "user": "root",
+    "options": [
+      "-o",
+      "BatchMode=yes",
+      "-o",
+      "ConnectTimeout=5",
+      "-o",
+      "StrictHostKeyChecking=accept-new"
+    ]
+  },
+  "nodes": [
+    {
+      "name": "router-a",
+      "host": "router-a.example",
+      "labels": {
+        "site": "site-a",
+        "role": "site-router"
+      }
+    },
+    {
+      "name": "router-b",
+      "host": "router-b.example",
+      "jump": "router-a.example",
+      "labels": {
+        "site": "site-b",
+        "role": "site-router"
+      }
+    },
+    {
+      "name": "hub",
+      "host": "hub.example",
+      "user": "root",
+      "identity_file": "/root/.ssh/node-control-telemetry_ed25519",
+      "labels": {
+        "site": "hub",
+        "role": "hub"
+      }
+    },
+    {
+      "name": "egress-a",
+      "host": "egress-a.example",
+      "user": "admin",
+      "identity_file": "/root/.ssh/node-control-telemetry_ed25519",
+      "labels": {
+        "site": "egress-a",
+        "role": "egress-vps"
+      }
+    },
+    {
+      "name": "egress-b",
+      "host": "egress-b.example",
+      "user": "root",
+      "identity_file": "/root/.ssh/node-control-telemetry_ed25519",
+      "labels": {
+        "site": "egress-b",
+        "role": "egress-vps"
+      }
+    }
+  ]
+}

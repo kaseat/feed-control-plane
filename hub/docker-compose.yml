@@ -1,0 +1,37 @@
+services:
+  hub:
+    build:
+      context: ..
+      dockerfile: hub/Dockerfile
+    image: node-control-hub:local
+    container_name: node-control-hub
+    ports:
+      - "18080:18080"
+    volumes:
+      - hub-data:/opt/node-control/data
+      - hub-runtime:/opt/node-control/runtime
+      - ../:/opt/node-control/repo:ro
+      - ./examples/hub.conf.example:/etc/node-control/hub.conf:ro
+    environment:
+      REPO_ROOT: /opt/node-control/repo
+      DATA_ROOT: /opt/node-control/data
+      RUNTIME_ROOT: /opt/node-control/runtime
+      HTTP_PORT: 18080
+      REGISTRY_FILE: /opt/node-control/data/registry/nodes.json
+      OBSERVED_ROOT: /opt/node-control/data/observed
+      PUBLIC_ROOT: /opt/node-control/runtime/public/node-feeds
+      HUB_INGEST_TOKEN: ${HUB_INGEST_TOKEN:-}
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "python3 -c \"import urllib.request; urllib.request.urlopen('http://127.0.0.1:18080/node-feeds/manifest.txt').read()\"",
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
+volumes:
+  hub-data:
+  hub-runtime:

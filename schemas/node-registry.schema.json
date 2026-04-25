@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.net/schemas/node-registry.schema.json",
+  "title": "Node Registry",
+  "type": "object",
+  "required": ["nodes"],
+  "properties": {
+    "nodes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "profile", "enabled"],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "profile": {
+            "type": "string"
+          },
+          "enabled": {
+            "type": "boolean"
+          },
+          "group": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

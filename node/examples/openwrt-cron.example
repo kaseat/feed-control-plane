@@ -1,0 +1,10 @@
+# Public-safe example only.
+#
+# Copy these lines into /etc/crontabs/root on the node.
+# node-health runs often so the hub can see fresh state.
+*/5 * * * * /usr/libexec/node-feeds/node-health.sh /etc/node-feeds/node.conf >/var/log/node-feeds-health.log 2>&1
+*/5 * * * * /usr/libexec/node-feeds/push-health.sh /etc/node-feeds/node.conf >/var/log/node-feeds-health-push.log 2>&1
+# The jobs below run once per day and keep observed, push and runtime update in sync.
+5 3 * * * /usr/libexec/node-feeds/collect-observed.sh /etc/node-feeds/node.conf >/var/log/node-feeds-observed.log 2>&1
+10 3 * * * /usr/libexec/node-feeds/push-observed.sh /etc/node-feeds/node.conf >/var/log/node-feeds-observed-push.log 2>&1
+15 3 * * * /usr/libexec/node-feeds/update.sh /etc/node-feeds/node.conf >/var/log/node-feeds-update.log 2>&1

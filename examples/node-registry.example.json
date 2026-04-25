@@ -1,0 +1,16 @@
+{
+  "nodes": [
+    {
+      "name": "site-a",
+      "profile": "critical",
+      "enabled": true,
+      "group": "canary"
+    },
+    {
+      "name": "site-b",
+      "profile": "critical",
+      "enabled": false,
+      "group": "stable"
+    }
+  ]
+}

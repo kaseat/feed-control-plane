@@ -1,0 +1,37 @@
+{
+  "critical_seed_groups": [
+    "anime",
+    "block",
+    "geoblock",
+    "hodca",
+    "news",
+    "porn",
+    "cloudfront",
+    "digitalocean",
+    "discord",
+    "google_ai",
+    "google_meet",
+    "hdrezka",
+    "hetzner",
+    "meta",
+    "telegram",
+    "tiktok",
+    "twitter",
+    "youtube"
+  ],
+  "service_ip_seed_groups": [
+    "telegram",
+    "meta",
+    "twitter",
+    "discord",
+    "google_meet"
+  ],
+  "service_ip_merge_target": "fs4",
+  "service_ip_source_family": "itdog-curated",
+  "critical_seed_exclude_domains": [
+    "google.com",
+    "cloudflare-dns.com",
+    "parsec.app",
+    "microsoft.com"
+  ]
+}

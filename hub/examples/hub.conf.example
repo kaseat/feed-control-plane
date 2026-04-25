@@ -1,0 +1,17 @@
+# Public-safe example only.
+
+REPO_ROOT=/opt/node-control/repo
+DATA_ROOT=/opt/node-control/data
+RUNTIME_ROOT=/opt/node-control/runtime
+HTTP_PORT=18080
+PUBLIC_ROOT=$RUNTIME_ROOT/public/node-feeds
+REGISTRY_FILE=/opt/node-control/data/registry/nodes.json
+OBSERVED_ROOT=/opt/node-control/data/observed
+APPROVED_CRITICAL_FILE=/opt/node-control/data/approved/private_critical.domains
+CANDIDATE_ROOT=/opt/node-control/data/candidate
+PROCESS_STATE_FILE=/opt/node-control/data/state/observed-processed.json
+NOISE_FILTERS_CONFIG=$REPO_ROOT/seeds/noise.example.json
+DENY_FILTERS_CONFIG=$REPO_ROOT/seeds/deny.example.json
+PUBLIC_SOURCES_CONFIG=$REPO_ROOT/seeds/public_sources.example.json
+ITDOG_PROFILE_CONFIG=$REPO_ROOT/seeds/itdog_profile.example.json
+THRESHOLDS_CONFIG=$REPO_ROOT/seeds/thresholds.example.json

@@ -1,0 +1,14 @@
+{
+  "exact": [
+    "localhost",
+    "home.arpa",
+    "in-addr.arpa",
+    "ip6.arpa"
+  ],
+  "suffix": [
+    "lan",
+    "local",
+    "invalid"
+  ],
+  "contains": []
+}

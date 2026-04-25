@@ -1,0 +1,9 @@
+[Unit]
+Description=Node Control Hub source sync and release rebuild
+After=network-online.target docker.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/node-control/repo/hub
+ExecStart=/opt/node-control/repo/hub/scripts/sync-repo.sh /opt/node-control/repo/hub/examples/hub.conf.example

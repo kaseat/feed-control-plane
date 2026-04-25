@@ -1,0 +1,11 @@
+[Unit]
+Description=Daily Node Control Hub sync timer
+
+[Timer]
+OnCalendar=daily
+Persistent=true
+RandomizedDelaySec=2h
+Unit=node-control-hub-sync.service
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,11 @@
+{
+  "candidate_thresholds": {
+    "count_min": 3,
+    "windows_min": 2,
+    "clients_min": 1
+  },
+  "filters": {
+    "unknown_output": "unknown_observed.domains",
+    "suffix_match_mode": "dns-label"
+  }
+}

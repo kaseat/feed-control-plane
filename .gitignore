@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+*.pyo
+*.swp
+*.tmp
+*.log
+.DS_Store
+docs/
+dist/
+out/
+work/

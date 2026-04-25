@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.net/schemas/observed.schema.json",
+  "title": "Observed Aggregate Record",
+  "type": "object",
+  "required": ["node", "window", "domain", "count"],
+  "properties": {
+    "node": {
+      "type": "string"
+    },
+    "window": {
+      "type": "string"
+    },
+    "domain": {
+      "type": "string"
+    },
+    "count": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "client_hashes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

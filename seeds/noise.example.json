@@ -1,0 +1,14 @@
+{
+  "exact": [
+    "google.com",
+    "cloudflare-dns.com",
+    "microsoft.com"
+  ],
+  "suffix": [
+    "doubleclick.net"
+  ],
+  "contains": [
+    "telemetry",
+    "metrics"
+  ]
+}
