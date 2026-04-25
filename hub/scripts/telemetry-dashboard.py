@@ -1170,21 +1170,78 @@ class TelemetryHandler(BaseHTTPRequestHandler):
   <title>Network Telemetry</title>
   <style>
     :root {{
-      color-scheme: light;
+      color-scheme: light dark;
       --bg: #f5f7fb;
+      --bg-top: #eaf0f7;
       --panel: #ffffff;
+      --panel-2: #fbfdff;
       --ink: #0f172a;
       --muted: #64748b;
       --border: #d8e0ea;
+      --border-soft: #edf2f7;
       --accent: #0f766e;
+      --accent-soft: rgba(15, 118, 110, 0.12);
       --good: #15803d;
       --warn: #b45309;
       --bad: #b91c1c;
+      --surface-strong: rgba(255, 255, 255, 0.72);
+      --surface-hover: #f8fbff;
+      --surface-good: linear-gradient(180deg, #f7fff9 0%, #eefcf4 100%);
+      --surface-warn: linear-gradient(180deg, #fffdf4 0%, #fffbeb 100%);
+      --surface-bad: linear-gradient(180deg, #fff7f7 0%, #fef2f2 100%);
+      --surface-good-border: #bbf7d0;
+      --surface-warn-border: #fde68a;
+      --surface-bad-border: #fecaca;
+      --chip-bg: #eff6ff;
+      --chip-text: #1d4ed8;
+      --chip-good-bg: #ecfdf5;
+      --chip-good-text: var(--good);
+      --chip-warn-bg: #fffbeb;
+      --chip-warn-text: var(--warn);
+      --chip-bad-bg: #fef2f2;
+      --chip-bad-text: var(--bad);
+      --shadow-card: 0 16px 40px rgba(15, 23, 42, 0.06);
+      --shadow-soft: 0 8px 20px rgba(15, 23, 42, 0.04);
+    }}
+    @media (prefers-color-scheme: dark) {{
+      :root {{
+        --bg: #0b1020;
+        --bg-top: #111827;
+        --panel: #111827;
+        --panel-2: #0f172a;
+        --ink: #e5edf8;
+        --muted: #8fa1bb;
+        --border: #243044;
+        --border-soft: #1f2937;
+        --accent: #34d399;
+        --accent-soft: rgba(52, 211, 153, 0.16);
+        --good: #34d399;
+        --warn: #fbbf24;
+        --bad: #f87171;
+        --surface-strong: rgba(15, 23, 42, 0.72);
+        --surface-hover: #132036;
+        --surface-good: linear-gradient(180deg, #0f1f1a 0%, #10261d 100%);
+        --surface-warn: linear-gradient(180deg, #201a0b 0%, #2a220a 100%);
+        --surface-bad: linear-gradient(180deg, #221315 0%, #2a1518 100%);
+        --surface-good-border: #1f6f55;
+        --surface-warn-border: #5a4210;
+        --surface-bad-border: #7f1d1d;
+        --chip-bg: #17213a;
+        --chip-text: #93c5fd;
+        --chip-good-bg: #10261d;
+        --chip-good-text: #6ee7b7;
+        --chip-warn-bg: #2a220a;
+        --chip-warn-text: #fcd34d;
+        --chip-bad-bg: #2a1518;
+        --chip-bad-text: #fca5a5;
+        --shadow-card: 0 16px 40px rgba(0, 0, 0, 0.28);
+        --shadow-soft: 0 8px 20px rgba(0, 0, 0, 0.22);
+      }}
     }}
     body {{
       margin: 0;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: linear-gradient(180deg, #eaf0f7 0%, var(--bg) 180px, var(--bg) 100%);
+      background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg) 180px, var(--bg) 100%);
       color: var(--ink);
     }}
     .shell {{ max-width: 1440px; margin: 0 auto; padding: 24px; }}
@@ -1200,7 +1257,7 @@ class TelemetryHandler(BaseHTTPRequestHandler):
       border: 1px solid var(--border);
       border-radius: 18px;
       padding: 22px 24px;
-      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.06);
+      box-shadow: var(--shadow-card);
     }}
     .title h1 {{ margin: 0 0 8px; font-size: 30px; line-height: 1.1; }}
     .title p {{ margin: 0; color: var(--muted); }}
@@ -1225,7 +1282,7 @@ class TelemetryHandler(BaseHTTPRequestHandler):
       border-radius: 18px;
       padding: 18px;
       margin-top: 18px;
-      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.05);
+      box-shadow: var(--shadow-card);
     }}
     .section h2 {{ margin: 0 0 12px; font-size: 18px; }}
     .class-grid {{
@@ -1233,10 +1290,10 @@ class TelemetryHandler(BaseHTTPRequestHandler):
       gap: 16px;
     }}
     .class-block {{
-      border: 1px solid #edf2f7;
+      border: 1px solid var(--border-soft);
       border-radius: 16px;
       padding: 14px 14px 8px;
-      background: #fbfdff;
+      background: var(--panel-2);
       margin-bottom: 14px;
     }}
     .class-head {{
@@ -1251,7 +1308,7 @@ class TelemetryHandler(BaseHTTPRequestHandler):
       font-size: 15px;
     }}
     table {{ width: 100%; border-collapse: collapse; }}
-    th, td {{ text-align: left; padding: 10px 8px; border-bottom: 1px solid #edf2f7; vertical-align: top; }}
+    th, td {{ text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--border-soft); vertical-align: top; }}
     th {{ color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .05em; }}
     .chip {{
       display: inline-flex;
@@ -1261,12 +1318,12 @@ class TelemetryHandler(BaseHTTPRequestHandler):
       padding: 4px 10px;
       font-size: 12px;
       font-weight: 600;
-      background: #eff6ff;
-      color: #1d4ed8;
+      background: var(--chip-bg);
+      color: var(--chip-text);
     }}
-    .chip.good {{ background: #ecfdf5; color: var(--good); }}
-    .chip.warn {{ background: #fffbeb; color: var(--warn); }}
-    .chip.bad {{ background: #fef2f2; color: var(--bad); }}
+    .chip.good {{ background: var(--chip-good-bg); color: var(--chip-good-text); }}
+    .chip.warn {{ background: var(--chip-warn-bg); color: var(--chip-warn-text); }}
+    .chip.bad {{ background: var(--chip-bad-bg); color: var(--chip-bad-text); }}
     .resolver-cell {{ min-width: 280px; }}
     .resolver-card {{
       min-width: 156px;
@@ -1291,18 +1348,18 @@ class TelemetryHandler(BaseHTTPRequestHandler):
     }}
     .tunnel-card {{
       min-width: 156px;
-      border: 1px solid #dbe7f3;
+      border: 1px solid var(--border);
       border-radius: 14px;
-      background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+      background: linear-gradient(180deg, var(--panel) 0%, var(--panel-2) 100%);
       padding: 8px 10px;
-      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.04);
+      box-shadow: var(--shadow-soft);
     }}
-    .tunnel-card.good {{ border-color: #bbf7d0; background: linear-gradient(180deg, #f7fff9 0%, #eefcf4 100%); }}
-    .tunnel-card.warn {{ border-color: #fde68a; background: linear-gradient(180deg, #fffdf4 0%, #fffbeb 100%); }}
-    .tunnel-card.bad {{ border-color: #fecaca; background: linear-gradient(180deg, #fff7f7 0%, #fef2f2 100%); }}
+    .tunnel-card.good {{ border-color: var(--surface-good-border); background: var(--surface-good); }}
+    .tunnel-card.warn {{ border-color: var(--surface-warn-border); background: var(--surface-warn); }}
+    .tunnel-card.bad {{ border-color: var(--surface-bad-border); background: var(--surface-bad); }}
     .tunnel-card.active {{
-      border-color: #0f766e;
-      box-shadow: 0 0 0 2px rgba(15, 118, 110, 0.12), 0 10px 24px rgba(15, 118, 110, 0.12);
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px var(--accent-soft), 0 10px 24px var(--accent-soft);
     }}
     .tunnel-top {{
       display: flex;
@@ -1321,7 +1378,7 @@ class TelemetryHandler(BaseHTTPRequestHandler):
     }}
     .tunnel-metric {{
       border-radius: 9px;
-      background: rgba(255, 255, 255, 0.72);
+      background: var(--surface-strong);
       padding: 4px 5px;
     }}
     .tunnel-metric span {{
@@ -1346,6 +1403,15 @@ class TelemetryHandler(BaseHTTPRequestHandler):
     .mono {{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; }}
     .small {{ color: var(--muted); font-size: 12px; }}
     .scroll {{ overflow: auto; max-height: 520px; }}
+    .raw-json {{
+      white-space: pre-wrap;
+      margin: 0;
+      padding: 14px;
+      border-radius: 14px;
+      background: var(--panel-2);
+      border: 1px solid var(--border);
+      color: var(--ink);
+    }}
     @media (max-width: 1100px) {{
       .hero, .grid-2, .stats {{ grid-template-columns: 1fr; }}
     }}
@@ -1426,7 +1492,7 @@ class TelemetryHandler(BaseHTTPRequestHandler):
     <div class="section">
       <h2>Raw Snapshot</h2>
       <p class="small">Useful when you want the exact JSON payload behind the summary.</p>
-      <pre id="raw-json" class="mono" style="white-space: pre-wrap; margin: 0;"></pre>
+      <pre id="raw-json" class="mono raw-json"></pre>
     </div>
   </div>
 
