@@ -1248,7 +1248,7 @@ class TelemetryHandler(BaseHTTPRequestHandler):
     .hero {{
       display: grid;
       gap: 12px;
-      grid-template-columns: 1.7fr 1fr;
+      grid-template-columns: 1fr;
       align-items: stretch;
       margin-bottom: 20px;
     }}
@@ -1261,21 +1261,6 @@ class TelemetryHandler(BaseHTTPRequestHandler):
     }}
     .title h1 {{ margin: 0 0 8px; font-size: 30px; line-height: 1.1; }}
     .title p {{ margin: 0; color: var(--muted); }}
-    .stats {{
-      display: grid;
-      gap: 12px;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    }}
-    .stat {{
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 16px;
-      min-height: 96px;
-    }}
-    .stat .label {{ color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; }}
-    .stat .value {{ font-size: 24px; font-weight: 700; margin-top: 8px; line-height: 1.1; }}
-    .stat .subvalue {{ margin-top: 6px; color: var(--muted); font-size: 12px; line-height: 1.35; }}
     .section {{
       background: var(--panel);
       border: 1px solid var(--border);
@@ -1424,38 +1409,6 @@ class TelemetryHandler(BaseHTTPRequestHandler):
         <h1>Network Telemetry</h1>
         <p>Read-only dashboard for site routers, hub services, egress VPS links and feed state.</p>
         <p class="small">Last render: <span class="mono">{generated_at}</span></p>
-      </div>
-      <div class="stats">
-        <div class="stat">
-          <div class="label">Routers</div>
-          <div class="value" id="stat-routers">{summary["dashboard"]["routers"]["healthy"]}/{summary["dashboard"]["routers"]["total"]}</div>
-          <div class="subvalue">site routers healthy</div>
-        </div>
-        <div class="stat">
-          <div class="label">Hub</div>
-          <div class="value" id="stat-hub">{summary["dashboard"]["hub"]["healthy"]}/{summary["dashboard"]["hub"]["total"]}</div>
-          <div class="subvalue">control plane nodes healthy</div>
-        </div>
-        <div class="stat">
-          <div class="label">Egress VPS</div>
-          <div class="value" id="stat-vps">{summary["dashboard"]["vps"]["healthy"]}/{summary["dashboard"]["vps"]["total"]}</div>
-          <div class="subvalue">egress nodes healthy</div>
-        </div>
-        <div class="stat">
-          <div class="label">Foreign egress</div>
-          <div class="value" id="stat-foreign">{summary["dashboard"]["foreign"]["de"]} / {summary["dashboard"]["foreign"]["pl"]} / {summary["dashboard"]["foreign"]["ru"]}</div>
-          <div class="subvalue">de / pl / ru router selection</div>
-        </div>
-        <div class="stat">
-          <div class="label">Router feed</div>
-          <div class="value" id="stat-feed">{summary["dashboard"]["router_feed"]["healthy"]}/{summary["dashboard"]["router_feed"]["total"]}</div>
-          <div class="subvalue" id="stat-feed-version">version {summary["dashboard"]["router_feed"]["version"]}</div>
-        </div>
-        <div class="stat">
-          <div class="label">Freshness</div>
-          <div class="value" id="stat-freshness">{summary["dashboard"]["freshness"]["latest_age_seconds"]}s</div>
-          <div class="subvalue" id="stat-freshness-detail">{summary["dashboard"]["freshness"]["stale_nodes"]} stale · {summary["dashboard"]["freshness"]["dns_rows"]} dns rows</div>
-        </div>
       </div>
     </div>
 
@@ -1753,14 +1706,20 @@ class TelemetryHandler(BaseHTTPRequestHandler):
       const foreign = dashboard.foreign || {{de: 0, pl: 0, ru: 0, unknown: 0}};
       const routerFeed = dashboard.router_feed || {{healthy: 0, total: 0, version: 'unknown'}};
       const freshness = dashboard.freshness || {{latest_age_seconds: 0, stale_nodes: 0, dns_rows: 0}};
-      document.getElementById('stat-routers').textContent = `${{routers.healthy}}/${{routers.total}}`;
-      document.getElementById('stat-hub').textContent = `${{hub.healthy}}/${{hub.total}}`;
-      document.getElementById('stat-vps').textContent = `${{vps.healthy}}/${{vps.total}}`;
-      document.getElementById('stat-foreign').textContent = `${{foreign.de}} / ${{foreign.pl}} / ${{foreign.ru}}`;
-      document.getElementById('stat-feed').textContent = `${{routerFeed.healthy}}/${{routerFeed.total}}`;
-      document.getElementById('stat-feed-version').textContent = `version ${{routerFeed.version || 'unknown'}}`;
-      document.getElementById('stat-freshness').textContent = `${{freshness.latest_age_seconds || 0}}s`;
-      document.getElementById('stat-freshness-detail').textContent = `${{freshness.stale_nodes || 0}} stale · ${{freshness.dns_rows || 0}} dns rows`;
+      const statUpdates = [
+        ['stat-routers', `${{routers.healthy}}/${{routers.total}}`],
+        ['stat-hub', `${{hub.healthy}}/${{hub.total}}`],
+        ['stat-vps', `${{vps.healthy}}/${{vps.total}}`],
+        ['stat-foreign', `${{foreign.de}} / ${{foreign.pl}} / ${{foreign.ru}}`],
+        ['stat-feed', `${{routerFeed.healthy}}/${{routerFeed.total}}`],
+        ['stat-feed-version', `version ${{routerFeed.version || 'unknown'}}`],
+        ['stat-freshness', `${{freshness.latest_age_seconds || 0}}s`],
+        ['stat-freshness-detail', `${{freshness.stale_nodes || 0}} stale · ${{freshness.dns_rows || 0}} dns rows`],
+      ];
+      for (const [id, value] of statUpdates) {{
+        const target = document.getElementById(id);
+        if (target) target.textContent = value;
+      }}
     }};
 
     const seedNodes = JSON.parse(document.getElementById('seed-nodes').textContent);
